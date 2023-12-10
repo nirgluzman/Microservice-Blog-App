@@ -38,4 +38,12 @@ app.post('/posts/:id/comments', async (req, res) => {
 	res.status(201).send(comments);
 });
 
+// handle incoming event updates by the service bus
+app.post('/events', (req, res) => {
+	const event = req.body;
+	console.log('Event Received:', event.type); // log the event type
+
+	res.send({ status: 'OK' }); // send an ack to the event bus
+});
+
 app.listen(PORT, () => console.log(`listening on http://localhost:${PORT}`));
