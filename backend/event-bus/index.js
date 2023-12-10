@@ -9,14 +9,14 @@ const app = express();
 app.use(express.json());
 
 // event bus echoes back every event it receives.
-app.post('/events', (req, res) => {
+app.post('/events', async (req, res) => {
 	const event = req.body;
 
 	console.log('Event Received:', event.type); // log the event type
 
-	axios.post('http://localhost:4000/events', event); // send the event to 'posts'
-	axios.post('http://localhost:5000/events', event); // send the event to 'comments'
-	axios.post('http://localhost:6000/events', event); // send the event to 'query'
+	await axios.post('http://localhost:4000/events', event); // send the event to 'posts'
+	await axios.post('http://localhost:5000/events', event); // send the event to 'comments'
+	await axios.post('http://localhost:6000/events', event); // send the event to 'query'
 
 	res.send({ status: 'OK' });
 });
