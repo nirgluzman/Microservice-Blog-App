@@ -1,9 +1,11 @@
 import './App.css';
+import PostCreate from './components/PostCreate.js';
 
 export default function App() {
 	return (
-		<div>
-			<h1>Hello!</h1>
+		<div className='container'>
+			<h1>Create Post</h1>
+			<PostCreate />
 		</div>
 	);
 }
