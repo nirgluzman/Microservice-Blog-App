@@ -1,4 +1,5 @@
 import express from 'express';
+import axios from 'axios';
 import cors from 'cors';
 import { randomBytes } from 'crypto';
 
@@ -19,7 +20,7 @@ app.get('/posts/:id/comments', (req, res) => {
 	res.send(commentsByPostId[postId] || []); // return an empty array in case 'postId' does not exist.
 });
 
-app.post('/posts/:id/comments', (req, res) => {
+app.post('/posts/:id/comments', async (req, res) => {
 	const commentId = randomBytes(4).toString('hex');
 	const { content } = req.body;
 
@@ -27,6 +28,12 @@ app.post('/posts/:id/comments', (req, res) => {
 	const comments = commentsByPostId[postId] || []; // return an empty array in case 'postId' does not exist.
 	comments.push({ id: commentId, content });
 	commentsByPostId[req.params.id] = comments;
+
+	// emit an event to event bus
+	await axios.post('http://localhost:7000/events', {
+		type: 'CommentCreated',
+		data: { id: commentId, content, postId },
+	});
 
 	res.status(201).send(comments);
 });

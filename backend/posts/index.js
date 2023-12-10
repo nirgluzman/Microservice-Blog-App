@@ -1,4 +1,5 @@
 import express from 'express';
+import axios from 'axios';
 import cors from 'cors';
 import { randomBytes } from 'crypto';
 
@@ -18,11 +19,14 @@ app.get('/posts', (req, res) => {
 	res.send(posts);
 });
 
-app.post('/posts', (req, res) => {
+app.post('/posts', async (req, res) => {
 	const id = randomBytes(4).toString('hex');
 	const { title } = req.body;
 
 	posts[id] = { id, title };
+
+	// emit an event to event bus
+	await axios.post('http://localhost:7000/events', { type: 'PostCreated', data: { id, title } });
 
 	res.status(201).send(posts[id]);
 });
