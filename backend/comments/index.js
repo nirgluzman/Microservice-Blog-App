@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import { randomBytes } from 'crypto';
 
 const PORT = process.env.PORT || 5000;
@@ -7,6 +8,9 @@ const app = express();
 
 // parse incoming Request Object as a JSON Object
 app.use(express.json());
+
+// enable CORS middleware
+app.use(cors());
 
 const commentsByPostId = {};
 
