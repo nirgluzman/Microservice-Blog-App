@@ -12,6 +12,8 @@ app.use(express.json());
 app.post('/events', (req, res) => {
 	const event = req.body;
 
+	console.log('Event Received:', event.type); // log the event type
+
 	axios.post('http://localhost:4000/events', event); // send the event to 'posts'
 	axios.post('http://localhost:5000/events', event); // send the event to 'comments'
 	axios.post('http://localhost:6000/events', event); // send the event to 'query'
