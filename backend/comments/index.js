@@ -3,7 +3,7 @@ import axios from 'axios';
 import cors from 'cors';
 import { randomBytes } from 'crypto';
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 4100;
 
 const app = express();
 
@@ -30,7 +30,7 @@ app.post('/posts/:id/comments', async (req, res) => {
 	commentsByPostId[req.params.id] = comments;
 
 	// emit an event to event bus
-	await axios.post('http://localhost:7000/events', {
+	await axios.post('http://localhost:5000/events', {
 		type: 'CommentCreated',
 		data: { id: commentId, content, postId },
 	});
