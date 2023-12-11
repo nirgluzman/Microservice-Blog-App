@@ -12,7 +12,7 @@ app.use(express.json());
 // enable CORS middleware
 app.use(cors());
 
-// holds all posts and their respective comments
+// variable to hold all posts and their respective comments
 const posts = {};
 
 const handleEvent = (type, data) => {
@@ -44,7 +44,7 @@ app.get('/posts', (req, res) => {
 	res.send(posts);
 });
 
-// handle incoming event updates by the service bus
+// handle incoming event updates from the event-bus
 app.post('/events', (req, res) => {
 	const { type, data } = req.body;
 	console.log('Event Received:', type); // log the event type
@@ -58,8 +58,7 @@ app.listen(PORT, async () => {
 	console.log(`listening on http://localhost:${PORT}`);
 
 	try {
-		// once the query service it up, it should fetch all historical events from the service bus
-		// and update its posts storage
+		// once the query service it up, it should fetch all historical events from event-bus and store this info in 'posts' variable
 		console.log('Query service is up, fetching events...');
 		const res = await axios.get('http://localhost:5000/events');
 
