@@ -28,7 +28,7 @@ app.post('/events', async (req, res) => {
 		axios.post('http://localhost:4000/events', event), // send the event to 'posts' service
 		axios.post('http://localhost:4100/events', event), // send the event to 'comments' service
 		axios.post('http://localhost:4200/events', event), // send the event to 'query' service
-		axios.post('http://localhost:5100/events', event) // send the event to 'moderation' service
+		axios.post('http://localhost:4300/events', event) // send the event to 'moderation' service
 	]);
 
 	// log the error message if any of the services fail to process the event
