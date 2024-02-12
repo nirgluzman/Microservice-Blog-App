@@ -15,6 +15,8 @@ app.use(cors());
 
 const posts = {};
 
+// The full URL for this route would be constructed based on the root URL where the Express application is hosted and the port it is running on.
+// In our case, the Express application is running locally listening to port 4000. Therefore, the full URL for the "/posts" route would be http://localhost:4000/posts
 app.get('/posts', (req, res) => {
 	res.send(posts);
 });
